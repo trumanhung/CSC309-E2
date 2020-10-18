@@ -335,6 +335,22 @@ function removeBookFromPatronTable(book) {
 
 // Set status to red 'Overdue' in the book's patron's book table.
 function changeToOverdue(book) {
-	// Add code here
+	for (p of patronEntries.children) {
+		const cardNumber = p.children[1].lastElementChild.innerText
+
+		// found the patron
+		if (cardNumber == book.patron.cardNumber) {
+			const patronLoansTable = p.lastElementChild;
+
+			for (r of patronLoansTable.rows) {
+				if (r.cells[0].innerText == book.bookId) {
+					r.cells[2].firstElementChild.className = "red";
+					r.cells[2].firstElementChild.innerText = "Overdue";
+					break;
+				}
+
+			}
+		}
+	}
 
 }
