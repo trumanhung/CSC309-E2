@@ -165,10 +165,12 @@ function addNewPatron(e) {
 	e.preventDefault();
 
 	// Add a new patron to global array
-
+	const newPatronName = document.querySelector("#newPatronName");
+	const newPatron = new Patron(newPatronName);
+	patrons.push(newPatron)
 
 	// Call addNewPatronEntry() to add patron to the DOM
-
+	addNewPatronEntry(newPatron)
 }
 
 // Gets book info and then displays
@@ -227,7 +229,7 @@ function displayBookInfo(book) {
 		i.firstElementChild.innerText = temp[idx];
 		idx++;
 	}
-	
+
 }
 
 // Adds a book to a patron's book list with a status of 'Within due date'. 
