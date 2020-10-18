@@ -4,12 +4,15 @@ body {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
-table, td, th {
+table,
+td,
+th {
 	border-collapse: collapse;
 	border: 1px solid black;
 }
 
-td, th {
+td,
+th {
 	min-width: 200px;
 }
 

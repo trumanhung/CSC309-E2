@@ -29,8 +29,8 @@ class Book {
 		// Create a setTimeout that waits 3 seconds before indicating a book is overdue
 
 		const self = this; // keep book in scope of anon function (why? the call-site for 'this' in the anon function is the DOM window)
-		setTimeout(function() {
-			
+		setTimeout(function () {
+
 			console.log('overdue book!', self.title)
 			changeToOverdue(self);
 
@@ -40,7 +40,7 @@ class Book {
 }
 
 // Patron constructor
-const Patron = function(name) {
+const Patron = function (name) {
 	this.name = name;
 	this.cardNumber = numberOfPatrons;
 
@@ -60,10 +60,10 @@ patrons.push(new Patron('Kelly Jones'))
 // Patron 0 loans book 0
 libraryBooks[0].patron = patrons[0]
 // Set the overdue timeout
-libraryBooks[0].setLoanTime()  // check console to see a log after 3 seconds
+libraryBooks[0].setLoanTime() // check console to see a log after 3 seconds
 
 
-/* Select all DOM form elements you'll need. */ 
+/* Select all DOM form elements you'll need. */
 const bookAddForm = document.querySelector('#bookAddForm');
 const bookInfoForm = document.querySelector('#bookInfoForm');
 const bookLoanForm = document.querySelector('#bookLoanForm');
@@ -106,7 +106,7 @@ function addNewBookToBookList(e) {
 
 
 	// Call addBookToLibraryTable properly to add book to the DOM
-	
+
 }
 
 // Changes book patron information, and calls 
@@ -117,18 +117,18 @@ function loanBookToPatron(e) {
 
 
 	// Add patron to the book's patron property
-	
+
 
 	// Add book to the patron's book table in the DOM by calling addBookToPatronLoans()
-	
+
 
 	// Start the book loan timer.
-	
+
 
 }
 
 // Changes book patron information and calls returnBookToLibraryTable()
-function returnBookToLibrary(e){
+function returnBookToLibrary(e) {
 	e.preventDefault();
 	// check if return button was clicked, otherwise do nothing.
 
@@ -204,4 +204,3 @@ function changeToOverdue(book) {
 	// Add code here
 
 }
-
