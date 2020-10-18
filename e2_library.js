@@ -297,7 +297,31 @@ function addNewPatronEntry(patron) {
 
 // Removes book from patron's book table and remove patron card number from library book table
 function removeBookFromPatronTable(book) {
-	// Add code here
+	// Removes book from patron's book table
+	for (p of patronEntries.children) {
+		const cardNumber = p.children[1].lastElementChild.innerText
+
+		// found the patron
+		if (cardNumber == book.patron.cardNumber) {
+			const patronLoansTable = p.lastElementChild;
+
+			for (r of patronLoansTable.rows) {
+				if (r.cells[0].innerText == book.bookId) {
+					r.remove();
+					break;
+				}
+
+			}
+		}
+	}
+
+	// Remove patron card number from library book table
+	for (b of bookTable.rows) {
+		if (b.cells[0].innerText == book.bookId) {
+			b.cells[b.cells.length - 1].innerText = "";
+			break;
+		}
+	}
 
 }
 
