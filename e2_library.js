@@ -133,9 +133,7 @@ function loanBookToPatron(e) {
 		return console.error(`Patron card number ${loanCardNum} not found!`);
 
 	// Add patron to the book's patron property
-	// We assume books and card patron's number are never modified or deleted. 
 	loanBook.patron = loanCard;
-
 
 	// Add book to the patron's book table in the DOM by calling
 	addBookToPatronLoans(loanBook);
@@ -272,9 +270,17 @@ function addBookToPatronLoans(book) {
 			newButton.appendChild(document.createTextNode("return"));
 			newBookReturnButton.append(newButton)
 
-			return;
+			break;
 		}
 
+	}
+
+	// Add patron card number to library book table
+	for (b of bookTable.rows) {
+		if (b.cells[0].innerText == book.bookId) {
+			b.cells[b.cells.length - 1].innerText = book.patron.cardNumber;
+			break;
+		}
 	}
 }
 
@@ -322,7 +328,6 @@ function removeBookFromPatronTable(book) {
 			break;
 		}
 	}
-
 }
 
 // Set status to red 'Overdue' in the book's patron's book table.
