@@ -176,8 +176,14 @@ function getBookInfo(e) {
 	e.preventDefault();
 
 	// Get correct book
+	const bookInfoId = document.querySelector("#bookInfoId");
+	const book = libraryBooks[bookInfoId];
 
-	// Call displayBookInfo()	
+	if (!book)
+		return console.error(`Book id ${loanBookId} not found!`);
+
+	// Call displayBookInfo()
+	displayBookInfo(book);
 
 }
 
