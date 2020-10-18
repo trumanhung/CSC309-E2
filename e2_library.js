@@ -123,11 +123,16 @@ function loanBookToPatron(e) {
 	e.preventDefault();
 
 	// Get correct book and patron
-	const loanBookId = document.querySelector('#loanBookId');
-	const loanCardNum = document.querySelector('#loanCardNum');
+	const loanBookId = document.querySelector('#loanBookId').value;
+	const loanCardNum = document.querySelector('#loanCardNum').value;
 
-	const loanBook = libraryBooks[loanBookId - 1];
-	const loanCard = patrons[loanCardNum - 1];
+	const loanBook = libraryBooks[loanBookId];
+	const loanCard = patrons[loanCardNum];
+
+	if (!loanBook)
+		return console.error(`Book id ${loanBookId} not found!`);
+	if (!loanCard)
+		return console.error(`Patron card number ${loanCardNum} not found!`);
 
 	// Add patron to the book's patron property
 	// We assume books and card patron's number are never modified or deleted. 
@@ -214,8 +219,43 @@ function displayBookInfo(book) {
 // Adds a book to a patron's book list with a status of 'Within due date'. 
 // (don't forget to add a 'return' button).
 function addBookToPatronLoans(book) {
-	// Add code here
+	for (p of patronEntries.children) {
+		const cardNumber = p.children[1].lastElementChild.innerText
 
+		// found the patron
+		if (cardNumber == book.patron.cardNumber) {
+			const patronLoansTable = p.lastElementChild;
+
+			// Insert a row in the table at last row
+			const newRow = patronLoansTable.insertRow();
+
+			// Insert cells in the row
+			const newBookId = newRow.insertCell();
+			const newBookTitle = newRow.insertCell();
+			const newBookStatus = newRow.insertCell();
+			const newBookReturnButton = newRow.insertCell();
+
+			// Append text nodes to the cells
+			newBookId.appendChild(document.createTextNode(book.bookId));
+
+			const strongStyle = document.createElement('strong');
+			strongStyle.appendChild(document.createTextNode(book.title));
+			newBookTitle.appendChild(strongStyle);
+
+			const newSpan = document.createElement('span');
+			newSpan.className = "green";
+			newSpan.appendChild(document.createTextNode("Within due date"));
+			newBookStatus.appendChild(newSpan);
+
+			const newButton = document.createElement('button');
+			newButton.className = 'return';
+			newButton.appendChild(document.createTextNode("return"));
+			newBookReturnButton.append(newButton)
+
+			return;
+		}
+
+	}
 }
 
 // Adds a new patron with no books in their table to the DOM, including name, card number,
