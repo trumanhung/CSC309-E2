@@ -176,11 +176,11 @@ function getBookInfo(e) {
 	e.preventDefault();
 
 	// Get correct book
-	const bookInfoId = document.querySelector("#bookInfoId");
+	const bookInfoId = document.querySelector("#bookInfoId").value;
 	const book = libraryBooks[bookInfoId];
 
 	if (!book)
-		return console.error(`Book id ${loanBookId} not found!`);
+		return console.error(`Book id ${bookInfoId} not found!`);
 
 	// Call displayBookInfo()
 	displayBookInfo(book);
@@ -218,8 +218,16 @@ function addBookToLibraryTable(book) {
 
 // Displays deatiled info on the book in the Book Info Section
 function displayBookInfo(book) {
-	// Add code here
+	const temp = [book.bookId, book.title, book.author, book.genre];
+	const currentLoanedOutTo = book.patron ? book.patron.name : "N/A";
+	temp.push(currentLoanedOutTo)
 
+	let idx = 0;
+	for (i of bookInfo.children) {
+		i.firstElementChild.innerText = temp[idx];
+		idx++;
+	}
+	
 }
 
 // Adds a book to a patron's book list with a status of 'Within due date'. 
