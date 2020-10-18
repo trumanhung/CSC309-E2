@@ -148,13 +148,19 @@ function loanBookToPatron(e) {
 // Changes book patron information and calls returnBookToLibraryTable()
 function returnBookToLibrary(e) {
 	e.preventDefault();
+
 	// check if return button was clicked, otherwise do nothing.
+	if ("return" !== e.target.className) {
+		return
+	}
 
 	// Call removeBookFromPatronTable()
-
+	const returnedBookId = e.path[2].firstElementChild.innerText
+	const returnedBook = libraryBooks[returnedBookId];
+	removeBookFromPatronTable(returnedBook)
 
 	// Change the book object to have a patron of 'null'
-
+	returnedBook.patron = null
 
 }
 
