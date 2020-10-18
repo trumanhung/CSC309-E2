@@ -103,8 +103,6 @@ function addNewBookToBookList(e) {
 	e.preventDefault();
 
 	// Add book book to global array
-	console.log(e);
-
 	const newBookName = document.querySelector("#newBookName").value;
 	const newBookAuthor = document.querySelector("#newBookAuthor").value;
 	const newBookGenre = document.querySelector("#newBookGenre").value;
@@ -165,7 +163,7 @@ function addNewPatron(e) {
 	e.preventDefault();
 
 	// Add a new patron to global array
-	const newPatronName = document.querySelector("#newPatronName");
+	const newPatronName = document.querySelector("#newPatronName").value;
 	const newPatron = new Patron(newPatronName);
 	patrons.push(newPatron)
 
@@ -277,8 +275,17 @@ function addBookToPatronLoans(book) {
 // Adds a new patron with no books in their table to the DOM, including name, card number,
 // and blank book list (with only the <th> headers: BookID, Title, Status).
 function addNewPatronEntry(patron) {
-	// Add code here
+	let clone = document.querySelector('.patron').cloneNode(true);
 
+	clone.children[0].firstElementChild.innerText = patron.name;
+	clone.children[1].firstElementChild.innerText = patron.cardNumber;
+
+	// Only keep the header row.
+	clone.querySelectorAll("tr:not(:first-child)").forEach(row => {
+		row.remove();
+	});
+
+	patronEntries.appendChild(clone)
 }
 
 
