@@ -103,9 +103,18 @@ function addNewBookToBookList(e) {
 	e.preventDefault();
 
 	// Add book book to global array
+	console.log(e);
+
+	const newBookName = document.querySelector("#newBookName").value;
+	const newBookAuthor = document.querySelector("#newBookAuthor").value;
+	const newBookGenre = document.querySelector("#newBookGenre").value;
+
+	const newBook = new Book(newBookName, newBookAuthor, newBookGenre);
+	libraryBooks.push(newBook);
 
 
 	// Call addBookToLibraryTable properly to add book to the DOM
+	addBookToLibraryTable(newBook);
 
 }
 
@@ -114,16 +123,22 @@ function loanBookToPatron(e) {
 	e.preventDefault();
 
 	// Get correct book and patron
+	const loanBookId = document.querySelector('#loanBookId');
+	const loanCardNum = document.querySelector('#loanCardNum');
 
+	const loanBook = libraryBooks[loanBookId - 1];
+	const loanCard = patrons[loanCardNum - 1];
 
 	// Add patron to the book's patron property
+	// We assume books and card patron's number are never modified or deleted. 
+	loanBook.patron = loanCard;
 
 
-	// Add book to the patron's book table in the DOM by calling addBookToPatronLoans()
-
+	// Add book to the patron's book table in the DOM by calling
+	addBookToPatronLoans(loanBook);
 
 	// Start the book loan timer.
-
+	loanBook.setLoanTime();
 
 }
 
@@ -167,7 +182,25 @@ function getBookInfo(e) {
 
 // Adds a book to the library table.
 function addBookToLibraryTable(book) {
-	// Add code here
+	// Insert a row in the table at last row
+	const newRow = bookTable.insertRow();
+
+	// Insert cells in the row
+	const newBookId = newRow.insertCell();
+	const newBookTitle = newRow.insertCell();
+	const newBookPatron = newRow.insertCell();
+
+
+	// Append text nodes to the cells
+	newBookId.appendChild(document.createTextNode(book.bookId));
+
+	const strongStyle = document.createElement('strong')
+	strongStyle.appendChild(document.createTextNode(book.title));
+	newBookTitle.appendChild(strongStyle);
+
+	if (book.patron) {
+		newBookPatron.appendChild(document.createTextNode(book.patron));
+	}
 
 }
 
