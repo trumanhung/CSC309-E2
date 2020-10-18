@@ -131,6 +131,9 @@ function loanBookToPatron(e) {
 		return console.error(`Book id ${loanBookId} not found!`);
 	if (!loanCard)
 		return console.error(`Patron card number ${loanCardNum} not found!`);
+	if (loanBook.patron)
+		return console.error(`Book id ${loanBookId} has been loaned out to card holder ${loanBook.patron.name}!`);
+
 
 	// Add patron to the book's patron property
 	loanBook.patron = loanCard;
