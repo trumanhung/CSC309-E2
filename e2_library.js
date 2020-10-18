@@ -110,10 +110,8 @@ function addNewBookToBookList(e) {
 	const newBook = new Book(newBookName, newBookAuthor, newBookGenre);
 	libraryBooks.push(newBook);
 
-
 	// Call addBookToLibraryTable properly to add book to the DOM
 	addBookToLibraryTable(newBook);
-
 }
 
 // Changes book patron information, and calls 
@@ -143,7 +141,6 @@ function loanBookToPatron(e) {
 
 	// Start the book loan timer.
 	loanBook.setLoanTime();
-
 }
 
 // Changes book patron information and calls returnBookToLibraryTable()
@@ -151,9 +148,8 @@ function returnBookToLibrary(e) {
 	e.preventDefault();
 
 	// check if return button was clicked, otherwise do nothing.
-	if ("return" !== e.target.className) {
+	if ("return" !== e.target.className)
 		return
-	}
 
 	// Call removeBookFromPatronTable()
 	const returnedBookId = e.path[2].firstElementChild.innerText
@@ -162,7 +158,6 @@ function returnBookToLibrary(e) {
 
 	// Change the book object to have a patron of 'null'
 	returnedBook.patron = null
-
 }
 
 // Creates and adds a new patron
@@ -191,7 +186,6 @@ function getBookInfo(e) {
 
 	// Call displayBookInfo()
 	displayBookInfo(book);
-
 }
 
 
@@ -208,33 +202,23 @@ function addBookToLibraryTable(book) {
 	const newBookTitle = newRow.insertCell();
 	const newBookPatron = newRow.insertCell();
 
-
 	// Append text nodes to the cells
 	newBookId.appendChild(document.createTextNode(book.bookId));
 
-	const strongStyle = document.createElement('strong')
+	const strongStyle = document.createElement('strong');
 	strongStyle.appendChild(document.createTextNode(book.title));
 	newBookTitle.appendChild(strongStyle);
 
-	if (book.patron) {
+	if (book.patron)
 		newBookPatron.appendChild(document.createTextNode(book.patron));
-	}
-
 }
 
 
 // Displays deatiled info on the book in the Book Info Section
 function displayBookInfo(book) {
-	const temp = [book.bookId, book.title, book.author, book.genre];
-	const currentLoanedOutTo = book.patron ? book.patron.name : "N/A";
-	temp.push(currentLoanedOutTo)
+	const temp = [book.bookId, book.title, book.author, book.genre, book.patron ? book.patron.name : "N/A"];
 
-	let idx = 0;
-	for (i of bookInfo.children) {
-		i.firstElementChild.innerText = temp[idx];
-		idx++;
-	}
-
+	Array.prototype.map.call(bookInfo.children, (e, i) => e.firstElementChild.innerText = temp[i]);
 }
 
 // Adds a book to a patron's book list with a status of 'Within due date'. 
@@ -348,9 +332,7 @@ function changeToOverdue(book) {
 					r.cells[2].firstElementChild.innerText = "Overdue";
 					break;
 				}
-
 			}
 		}
 	}
-
 }
